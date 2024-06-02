@@ -8,43 +8,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const route = require("express");
-const Gemini = route.Router();
-const Gem = require("../../Models/Gemini");
-Gemini.get("/penta", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const routes = require("express");
+const Claude = routes.Router();
+const Clod = require("../../Models/Claude/index");
+Claude.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    res.status(403);
     try {
         const text = req.query.chat;
-        if (!text)
-            res.status(400).json({ msg: "chat is required!" });
-        const resp = yield Gem.chat(text);
+        const resp = yield Clod.run(text);
         console.log(resp);
         let ress;
         ress = {
-            text: resp.text(),
+            text: resp,
         };
         res.json(ress);
     }
     catch (error) {
         console.log(error);
-        res.status(500);
     }
 }));
-Gemini.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    try {
-        const text = req.query.chat;
-        if (!text)
-            res.status(400).json({ msg: "chat is required!" });
-        const resp = yield Gem.run(text);
-        console.log(resp);
-        let ress;
-        ress = {
-            text: resp.text(),
-        };
-        res.json(ress);
-    }
-    catch (error) {
-        console.log(error);
-        res.status(500);
-    }
-}));
-module.exports = Gemini;
+module.exports = Claude;

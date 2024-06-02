@@ -1,16 +1,18 @@
-const express = require('express');
-const gemini = require('./Controllers/Gemini')
+const express = require("express");
+const gemini = require("./Controllers/Gemini");
+const clod = require("./Controllers/Claude");
+const Ilam = require("./Controllers/Ilama");
+const app = express();
 
-const app = express()
+app.get("/", (req: any, res: any) => {
+  res.json("helloworld");
+});
 
+app.use("/gemini", gemini);
+app.use("/claude", clod);
+app.use("/llama", Ilam);
+// app.get("/gpt", async (req: any, res: any) => {});
 
-app.get('/', (req: any, res: any) => {
-    res.json('helloworld')
-
-})
-
-app.use('/gemini',gemini)
-
-app.listen(3100,()=>{
-    console.log('gas')
-})
+app.listen(3100, () => {
+  console.log("gas");
+});
