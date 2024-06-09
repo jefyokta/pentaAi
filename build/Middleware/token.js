@@ -16,7 +16,6 @@ const accesstoken = process.env.ACTOKEN;
 const tokenverify = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     console.log("omke");
     const token = req.cookies.refreshtoken;
-    const red = req.query.redirect;
     if (!token)
         return res.sendStatus(401);
     try {
@@ -31,8 +30,7 @@ const tokenverify = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             expiresIn: "30s",
         });
         return res
-            .cookies("accesstoken", acctoken)
-            .redirect(process.env.SERVERHOST + "/" + red);
+            .cookies("accesstoken", acctoken);
     }
     catch (error) {
         return res.sendStatus(500);

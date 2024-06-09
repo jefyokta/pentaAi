@@ -1,6 +1,6 @@
-const routes = require("express");
-const Claude = routes.Router();
-const Clod = require("../../Models/Claude/index");
+import {Router} from "express";
+const Claude = Router();
+import Clod from "../../Models/Claude/index.js";
 interface ChatResponse {
   text: string;
 }
@@ -21,4 +21,4 @@ Claude.get("/", async (req: any, res: any): Promise<any> => {
   }
 });
 
-module.exports = Claude;
+export default Claude;

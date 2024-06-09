@@ -1,5 +1,7 @@
-const axios = require("axios");
-require("dotenv").config();
+import axios from 'axios'
+
+import dotenv from 'dotenv'
+dotenv.config()
 interface Options {
   method: string;
   url: string;
@@ -55,4 +57,4 @@ class ClaudeCLass {
   }
 }
 const claude = new ClaudeCLass();
-module.exports= claude
+export default claude

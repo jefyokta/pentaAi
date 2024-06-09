@@ -1,16 +1,7 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const routeer = require("express");
-const Ilama = routeer.Router();
-const Ilm = require("../../Models/Ilama");
+import { __awaiter } from "tslib";
+import { Router } from "express";
+const Ilama = Router();
+import Ilm from "../../Models/Ilama/index.js";
 Ilama.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const text = req.query.chat;
@@ -28,4 +19,4 @@ Ilama.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         console.log(error);
     }
 }));
-module.exports = Ilama;
+export default Ilama;

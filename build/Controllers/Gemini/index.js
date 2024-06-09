@@ -1,26 +1,19 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const route = require("express");
-const Gemini = route.Router();
-const Gem = require("../../Models/Gemini");
+import { __awaiter } from "tslib";
+import { Router } from "express";
+const Gemini = Router();
+import Gem from "../../Models/Gemini/index.js";
 Gemini.get("/penta", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const text = req.query.chat;
+        console.log(req.cookies.refreshtoken);
         if (!text)
             res.status(400).json({ msg: "chat is required!" });
         const resp = yield Gem.chat(text);
         console.log(resp);
         let ress;
+        const tex = resp.text();
         ress = {
-            text: resp.text(),
+            text: tex,
         };
         res.json(ress);
     }
@@ -47,4 +40,4 @@ Gemini.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500);
     }
 }));
-module.exports = Gemini;
+export { Gemini };

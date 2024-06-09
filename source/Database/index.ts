@@ -1,7 +1,9 @@
-const { createClient } = require("@supabase/supabase-js");
-require("dotenv").config();
-const uri = process.env.DBURL;
-const apikey = process.env.SUPABASEKEY;
+import { createClient } from "@supabase/supabase-js";
+import dotenv from "dotenv";
+dotenv.config()
+
+const uri :any = process.env.DBURL;
+const apikey :any= process.env.SUPABASEKEY;
 class database {
   private supabase: any;
   private table: string;
@@ -9,7 +11,7 @@ class database {
     this.supabase = createClient(uri, apikey);
     this.table = "users";
   }
-  async getUsername(username: string): Promise<Object> {
+  async getUsername(username: number): Promise<Object> {
     try {
       const { data, error } = await this.supabase
         .from(this.table)
@@ -64,4 +66,4 @@ class database {
 }
 
 const Auth = new database();
-module.exports = Auth;
+export default Auth;

@@ -1,10 +1,11 @@
-const Groq = require("groq-sdk");
-require("dotenv").config();
+import Groq from "groq-sdk";
+import dotenv from 'dotenv'
+dotenv.config()
 class IlamaClass {
   private grok: any;
   constructor() {
     this.grok = new Groq({
-      apyKey: process.env.GROQ_API_KEY,
+      apiKey: process.env.GROQ_API_KEY,
     });
   }
   async request(req: string) {
@@ -22,4 +23,4 @@ class IlamaClass {
 }
 
 const illama = new IlamaClass();
-module.exports = illama;
+export default illama;

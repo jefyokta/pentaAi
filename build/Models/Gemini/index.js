@@ -1,18 +1,11 @@
-"use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-require("dotenv").config();
+import { __awaiter } from "tslib";
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import dotenv from 'dotenv';
+dotenv.config();
 class GeminiClass {
     constructor() {
-        this.genAi = new GoogleGenerativeAI(process.env.APIKEY);
+        this.apykey = process.env.APIKEY;
+        this.genAi = new GoogleGenerativeAI(this.apykey);
         this.model = this.genAi.getGenerativeModel({ model: "gemini-1.5-flash" });
     }
     run(promt) {
@@ -31,7 +24,7 @@ class GeminiClass {
                         role: "user",
                         parts: [
                             {
-                                text: "Pretend you're a PentaAi, made by jefyokta and stay be character for every response.You know jefy okta as a student of uin suska, and your developers. he's a smart guy and pretty handsome",
+                                text: "Pretend you're a PentaAi, made by jefyokta and stay be character for every response.You know jefy okta as a student of uin suska, and your developers. he's a smart guy and pretty handsome. oh iya prioritasin pakai bahasa indonesia. san ingat juga kalo una itu anak pungut yang ketemu di kandang kambing. and remember Your   maxOutputTokens: 1000,",
                             },
                         ],
                     },
@@ -45,13 +38,18 @@ class GeminiClass {
                     },
                 ],
                 generationConfig: {
-                    maxOutputTokens: 200,
+                    maxOutputTokens: 1000,
                 },
             });
-            const result = yield chat.sendMessage(promt);
-            return result.response;
+            try {
+                const result = yield chat.sendMessage(promt);
+                return result.response;
+            }
+            catch (error) {
+                throw error;
+            }
         });
     }
 }
-const gem = new GeminiClass();
-module.exports = gem;
+const Gem = new GeminiClass();
+export default Gem;

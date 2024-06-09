@@ -1,6 +1,6 @@
-const routeer = require("express");
-const Ilama = routeer.Router();
-const Ilm = require("../../Models/Ilama");
+import {Router}from "express";
+const Ilama = Router();
+import Ilm from "../../Models/Ilama/index.js";
 interface ChatResponse {
   text: string;
 }
@@ -21,4 +21,4 @@ Ilama.get("/", async (req: any, res: any): Promise<any> => {
   }
 });
 
-module.exports = Ilama;
+export default  Ilama;

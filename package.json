@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "test",
-    "start": "tsc && node build/index"
+    "start": "sudo tsc && node build/index"
   },
   "author": "jefyokta",
   "license": "ISC",
   "dependencies": {
     "@google/generative-ai": "^0.12.0",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.6",
     "axios": "^1.7.2",
     "body-parser": "^1.20.2",
     "cookie-parser": "^1.4.6",
@@ -20,6 +25,7 @@
     "jsonwebtoken": "^9.0.2",
     "langchain": "^0.2.4",
     "nodemon": "^3.1.2",
+    "tslib": "^2.6.3",
     "typescript": "^5.4.5"
   },
   "devDependencies": {

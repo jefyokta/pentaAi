@@ -1,19 +1,19 @@
-"use strict";
-const jwtVerify = require("jsonwebtoken");
-require("dotenv").config();
+import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+dotenv.config();
+const serverky = process.env.SERVERKEY;
 const tokenVer = (req, res, next) => {
-    //   console.log(req);
     if (!req.cookies.refreshtoken)
         res.status(403);
-    const token = req.cookies.refreshtoken || false;
-    const path = req.originalUrl;
+    const token = req.cookies.refreshtoken;
     if (token == null)
         return res.sendStatus(401);
-    jwtVerify.verify(token, process.env.SERVERKEY, (e, dec) => {
-        if (e)
+    jwt.verify(token, serverky, (e, dec) => {
+        if (e) {
             return res.sendStatus(401);
+        }
         req.userid = dec.id;
         next();
     });
 };
-module.exports = tokenVer;
+export default tokenVer;
