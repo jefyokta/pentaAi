@@ -17,7 +17,7 @@ dotenv.config();
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.get("/", (req, res) => {
-    res.json("helloworld");
+    res.json("akmal kontol");
 });
 app.use("/check", Tokenverify, gate);
 app.use("/gemini", Gemini);
@@ -101,7 +101,9 @@ app.post("/login", (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         }
     }
 }));
-app.delete("/logout", (req, res) => { });
+app.delete("/logout", (req, res) => {
+    req.cookies.refreshtoken = "";
+});
 app.listen(3100, () => {
     console.log("gas");
 });

@@ -12,7 +12,7 @@ import bodyparser from "body-parser";
 import cookieparser from "cookie-parser";
 import gate from "./Middleware/gate.js";
 import dotenv from "dotenv";
-dotenv.config()
+dotenv.config();
 
 interface Logindata {
   username: string;
@@ -23,7 +23,7 @@ interface Logindata {
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.get("/", (req: Request, res: Response) => {
-  res.json("helloworld");
+  res.json("akmal kontol");
 });
 app.use("/check", Tokenverify, gate);
 app.use("/gemini", Gemini);
@@ -121,7 +121,9 @@ app.post("/login", async (req: Request, res: Response) => {
   }
 });
 
-app.delete("/logout", (req: Request, res: Response) => {});
+app.delete("/logout", (req: Request, res: Response) => {
+  req.cookies.refreshtoken = "";
+});
 app.listen(3100, () => {
   console.log("gas");
 });
