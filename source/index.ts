@@ -25,7 +25,7 @@ interface Logindata {
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.get("/", (req: Request, res: Response) => {
-  res.json("hi");
+  res.json(req);
 });
 app.use("/check", Tokenverify, gate);
 app.use("/gemini", Gemini);
