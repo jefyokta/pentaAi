@@ -14,7 +14,7 @@ import gate from "./Middleware/gate.js";
 import dotenv from "dotenv";
 import Gem from "./Models/Gemini/index.js";
 dotenv.config();
-const TELE_TOKEN = "7895483182:AAEYf1pDIYQcPQxcEIzHUCKTGBDDmqqAyP0";
+const TELE_TOKEN = process.env.TELE_TOKEN;
 const TELE_URL = `https://api.telegram.org/bot${TELE_TOKEN}`;
 interface Logindata {
   username: string;
