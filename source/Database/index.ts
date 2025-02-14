@@ -2,13 +2,13 @@ import { createClient } from "@supabase/supabase-js";
 import dotenv from "dotenv";
 dotenv.config()
 
-const uri :any = process.env.DBURL;
+const uri :string|undefined = process.env.DBURL;
 const apikey :any= process.env.SUPABASEKEY;
 class database {
   private supabase: any;
   private table: string;
   constructor() {
-    this.supabase = createClient(uri, apikey);
+    this.supabase = createClient(uri!, apikey);
     this.table = "users";
   }
   async getUsername(username: number): Promise<Object> {

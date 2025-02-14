@@ -12,8 +12,10 @@ import bodyparser from "body-parser";
 import cookieparser from "cookie-parser";
 import gate from "./Middleware/gate.js";
 import dotenv from "dotenv";
+import Gem from "./Models/Gemini/index.js";
 dotenv.config();
-
+const TELE_TOKEN = "7895483182:AAEYf1pDIYQcPQxcEIzHUCKTGBDDmqqAyP0";
+const TELE_URL = `https://api.telegram.org/bot${TELE_TOKEN}`;
 interface Logindata {
   username: string;
   productid: number;
@@ -23,12 +25,25 @@ interface Logindata {
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.get("/", (req: Request, res: Response) => {
-  res.json("akmal kontol");
+  // res.json("akmal kontol");
 });
 app.use("/check", Tokenverify, gate);
 app.use("/gemini", Gemini);
 app.use("/claude", Tokenverify, Claude);
-app.use("/llama", Tokenverify, Ilama);
+app.use("/llama", Ilama);
+app.post("/tele-endpoint", async (req: Request, res: Response) => {
+  const {chat,text} = req.body
+
+  const airesponse =await Gem.chat(text)
+
+  await fetch(`${TELE_URL}/sendMessage`,{
+    method:"POST",
+    body:JSON.stringify({chat_id:chat.id,text:airesponse.text()})
+  })
+
+  res.status(200)
+
+});
 app.get("/test", async (req: Request, res: Response) => {
   const result = await Auth.getUsername(5);
   console.log(result);

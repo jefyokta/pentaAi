@@ -9,7 +9,6 @@ interface ChatResponse {
 Gemini.get("/penta", async (req: any, res: any): Promise<any> => {
   try {
     const text = req.query.chat;
-    console.log(req.cookies.refreshtoken);
     if (!text) res.status(400).json({ msg: "chat is required!" });
 
     const resp: any = await Gem.chat(text);
