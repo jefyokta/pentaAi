@@ -12,7 +12,6 @@ Gemini.get("/penta", async (req: any, res: any): Promise<any> => {
     if (!text) res.status(400).json({ msg: "chat is required!" });
 
     const resp: any = await Gem.chat(text);
-    console.log(resp);
     let ress: ChatResponse;
     const tex = resp.text();
     ress = {

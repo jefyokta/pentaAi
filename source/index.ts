@@ -25,25 +25,39 @@ interface Logindata {
 app.use(bodyparser.json());
 app.use(cookieparser());
 app.get("/", (req: Request, res: Response) => {
-  res.json(req);
+  res.json(req.headers);
 });
 app.use("/check", Tokenverify, gate);
 app.use("/gemini", Gemini);
 app.use("/claude", Tokenverify, Claude);
 app.use("/llama", Ilama);
 app.post("/tele-endpoint", async (req: Request, res: Response) => {
-  const {chat,text} = req.body
+  try {
+    console.log("Request received:", req.body);
+    const {message}= req.body
+   const chat = message.chat
+   const text = message.text
 
-  const airesponse =await Gem.chat(text)
+    if (!chat || !chat.id || !text) {
+      return res.status(400).json({ error: "Invalid request body" });
+    }
 
-  await fetch(`${TELE_URL}/sendMessage`,{
-    method:"POST",
-    body:JSON.stringify({chat_id:chat.id,text:airesponse.text()})
-  })
+    const airesponse = await Gem.chat(text);
+    const responese = await airesponse.text() || "Maaf, saya tidak bisa menjawab.";
 
-  res.status(200)
+    await fetch(`${TELE_URL}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" }, 
+      body: JSON.stringify({ chat_id: chat.id, text:responese }), 
+    });
 
+    res.status(200).json({ status: "Message sent" }); 
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
+
 app.get("/test", async (req: Request, res: Response) => {
   const result = await Auth.getUsername(5);
   console.log(result);
